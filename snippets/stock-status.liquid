@@ -1,0 +1,66 @@
+<div class="instock-pulse" style="--status-color: {{ status_color }};">
+  {% if product.available == true%}
+    {% assign status_color = '#25A525' %} 
+    <span class="icon--pulsing"></span>
+    <span>Auf Lager, in 2-3 Tagen bei dir</span>
+
+    
+  {% else %}
+    {% assign status_color = '#c96614' %} 
+    <span class="icon--pulsing"></span>
+    <span>Ausverkauft!</span>
+  {% endif %}
+</div>
+
+<style>
+  .instock-pulse {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+   
+  }
+
+  .icon--pulsing {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+   
+  }
+
+  .instock-pulse span {
+    font-weight: bold;
+    font-size: 15px;
+    color:  {{ status_color }} /* Textfarbe basierend auf der CSS-Variable */
+  }
+
+  .icon--pulsing:after, 
+  .icon--pulsing:before {
+    background:  {{ status_color }};
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+    margin: 5px;
+  }
+
+  @keyframes inventory-pulse {
+    0% {
+      opacity: 0.5;
+    }
+    to {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  .icon--pulsing:before {
+    animation: inventory-pulse 2s linear infinite;
+  }
+</style>

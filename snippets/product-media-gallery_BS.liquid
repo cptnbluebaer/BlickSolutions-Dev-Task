@@ -1,0 +1,167 @@
+<div class="swiper__container">
+  <div class="swiper__wrapper">
+    <div class="swiper__layout">
+
+      <div class="swiper2 swiper__thumbs">
+        <div class="swiper-wrapper">
+          {% for media in product.media %}
+            <div class="swiper-slide">
+              <img 
+                class="swiper__thumb-image" 
+                src="{{ media.preview_image | image_url }}"
+                alt="{{ media.alt | escape }}"
+              >
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+
+      <div class="swiper swiper1 swiper__main">
+        <div class="swiper-wrapper">
+          {% for media in product.media %}
+            <div class="swiper-slide">
+              <img 
+                class="swiper__main-image" 
+                src="{{ media.preview_image | image_url }}"
+                alt="{{ media.alt | escape }}"
+              >
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="swiper-pagination"></div>
+
+
+        <div class="swiper__nav-buttons">
+          <div class="swiper__nav-container">
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.swiper__container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.swiper__layout {
+  display: flex;
+  gap: 1rem;
+}
+
+.swiper-wrapper {
+    margin-bottom: 20px;
+  }
+
+.swiper2 {
+  overflow: hidden;
+  max-height: 450px;
+  width: 100px;
+  height: 100%;
+}
+
+.swiper__thumbs {
+  width: 100px;
+  height: 100%;
+}
+
+.swiper__thumb-image {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}
+
+.swiper1.swiper__main {
+  width: calc(100% - 140px);
+  height: 100%;
+  margin: 0;
+}
+
+.swiper__main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 3px
+}
+
+.swiper__nav-buttons {
+  width: 100%;
+  bottom: 15px;
+  position: absolute;
+}
+
+.swiper__nav-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.swiper-button-next {
+  position: absolute;
+  right: 43%;
+}
+
+.swiper-button-prev {
+  position: absolute;
+  left: 43%;
+}
+
+.swiper-pagination {
+  display: none;
+}
+
+.swiper-pagination-bullet-active {
+  color: black;
+  background: black !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .swiper2 {
+    height: 360px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .swiper2 {
+    height: 240px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .swiper2 {
+    display: none;
+  }
+
+  .swiper1.swiper__main {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-pagination {
+    display: block;
+  }
+
+  .swiper__nav-buttons {
+    display: none;
+  }
+
+  .swiper-wrapper {
+    margin-bottom: 30px;
+  }
+}
+</style>

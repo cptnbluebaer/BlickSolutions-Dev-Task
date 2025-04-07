@@ -1,0 +1,131 @@
+{% schema %}
+    {
+      "name": "Icon Features Grid",
+      "settings": [
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Oberer Abstand",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Unterer Abstand",
+          "min": 0,
+          "max": 100,
+          "step": 4,
+          "unit": "px",
+          "default": 20
+        }
+      ],
+      "blocks": [
+        {
+          "type": "feature",
+          "name": "Feature Block",
+          "settings": [
+            {
+              "type": "image_picker",
+              "id": "icon",
+              "label": "Icon"
+            },
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title Text",
+              "default": "100% Qualität"
+            },
+            {
+              "type": "text",
+              "id": "subtitle",
+              "label": "Subtitle Text",
+              "default": "dank weichem Silikon"
+            }
+          ]
+        }
+      ],
+      "max_blocks": 12,
+      "presets": [
+        {
+          "name": "Icon Feature Grid",
+          "category": "Custom"
+        }
+      ]
+    }
+    {% endschema %}
+    
+    <div class="feature-grid-section" style="margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;">
+      <div class="page-width">
+        <div class="feature-grid">
+          {% for block in section.blocks %}
+            <div class="feature-grid__block">
+              <div class="feature-grid__content">
+                {% if block.settings.icon %}
+                  <div class="feature-grid__icon">
+                    <img src="{{ block.settings.icon | image_url: width: 64 }}" alt="Icon" loading="lazy">
+                  </div>
+                {% endif %}
+                <div class="feature-grid__text">
+                  <div class="feature-grid__title">{{ block.settings.title }}</div>
+                  <div class="feature-grid__subtitle">{{ block.settings.subtitle }}</div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    
+    <style>
+      .feature-grid {
+        width: 100%;
+        display: grid;
+        gap: 1.5rem;
+      }
+    
+      @media screen and (min-width: 768px) {
+        .feature-grid {
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+      }
+    
+      .feature-grid__block {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .feature-grid__content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+    
+      .feature-grid__icon img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+      }
+    
+      .feature-grid__text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    
+      .feature-grid__title {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 19px;
+      }
+    
+      .feature-grid__subtitle {
+        font-size: 14px;
+        color: #666;
+      }
+    </style>
+    
